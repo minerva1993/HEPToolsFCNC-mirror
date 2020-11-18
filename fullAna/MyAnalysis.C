@@ -461,6 +461,10 @@ Bool_t MyAnalysis::Process(Long64_t entry)
     TLorentzVector jet;
     jet.SetPtEtaPhiE(jet_pt[iJet], jet_eta[iJet], jet_phi[iJet], jet_e[iJet]);
 
+    if( !option.Contains("Run201") and jet.Phi() < -0.87 and jet.Phi() > -1.57 and jet.Eta() < -1.3 and jet.Eta() > -2.5 ){
+      jet = 0.8*jet;
+    }
+
     if( !option.Contains("Run201") ){
       if     ( syst_ext == "jecup" )   jet = jet * jet_JER_Nom[iJet] * jet_JES_Up[iJet];
       else if( syst_ext == "jecdown" ) jet = jet * jet_JER_Nom[iJet] * jet_JES_Down[iJet];

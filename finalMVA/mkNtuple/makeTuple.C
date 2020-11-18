@@ -540,6 +540,10 @@ Bool_t makeTuple::Process(Long64_t entry)
     TLorentzVector jet;
     jet.SetPtEtaPhiE(jet_pt[iJet], jet_eta[iJet], jet_phi[iJet], jet_e[iJet]);
 
+    if( !option.Contains("Run201") and jet.Phi() < -0.87 and jet.Phi() > -1.57 and jet.Eta() < -1.3 and jet.Eta() > -2.5 ){
+      jet = 0.8*jet;
+    }
+
     if( !option.Contains("Run201") ){
       if     ( syst_ext == "jecup" )   jet = jet * jet_JER_Nom[iJet] * jet_JES_Up[iJet];
       else if( syst_ext == "jecdown" ) jet = jet * jet_JER_Nom[iJet] * jet_JES_Down[iJet];
@@ -654,7 +658,13 @@ Bool_t makeTuple::Process(Long64_t entry)
       b_stfcnc_jet2Idx = jetIdx[2]; b_stfcnc_jet3Idx = jetIdx[3];
       //cout << i0 << endl;
 
-      for( int i=0; i < 4; i++) jetP4[i].SetPtEtaPhiE(jet_pt[jetIdx[i]], jet_eta[jetIdx[i]], jet_phi[jetIdx[i]], jet_e[jetIdx[i]]);
+      for( int i=0; i < 4; i++ ){
+        jetP4[i].SetPtEtaPhiE(jet_pt[jetIdx[i]], jet_eta[jetIdx[i]], jet_phi[jetIdx[i]], jet_e[jetIdx[i]]);
+
+        if( !option.Contains("Run201") and jetP4[i].Phi() < -0.87 and jetP4[i].Phi() > -1.57 and jetP4[i].Eta() < -1.3 and jetP4[i].Eta() > -2.5 ){
+          jetP4[i] = 0.8*jetP4[i];
+        }
+      }
     }
 
     TLorentzVector jetP4cor[4];
@@ -782,7 +792,13 @@ Bool_t makeTuple::Process(Long64_t entry)
       b_ttfcnc_jet2Idx = jetIdx[2]; b_ttfcnc_jet3Idx = jetIdx[3];
       //cout << i0 << endl;
 
-      for( int i=0; i < 4; i++) jetP4[i].SetPtEtaPhiE(jet_pt[jetIdx[i]], jet_eta[jetIdx[i]], jet_phi[jetIdx[i]], jet_e[jetIdx[i]]);
+      for( int i=0; i < 4; i++ ){
+        jetP4[i].SetPtEtaPhiE(jet_pt[jetIdx[i]], jet_eta[jetIdx[i]], jet_phi[jetIdx[i]], jet_e[jetIdx[i]]);
+
+        if( !option.Contains("Run201") and jetP4[i].Phi() < -0.87 and jetP4[i].Phi() > -1.57 and jetP4[i].Eta() < -1.3 and jetP4[i].Eta() > -2.5 ){
+          jetP4[i] = 0.8*jetP4[i];
+        }
+      }
     }
 
     TLorentzVector jetP4cor[4];
@@ -910,7 +926,13 @@ Bool_t makeTuple::Process(Long64_t entry)
       b_ttbkg_jet2Idx = jetIdx[2]; b_ttbkg_jet3Idx = jetIdx[3];
       //cout << i0 << endl;
 
-      for( int i=0; i < 4; i++) jetP4[i].SetPtEtaPhiE(jet_pt[jetIdx[i]], jet_eta[jetIdx[i]], jet_phi[jetIdx[i]], jet_e[jetIdx[i]]);
+      for( int i=0; i < 4; i++ ){
+        jetP4[i].SetPtEtaPhiE(jet_pt[jetIdx[i]], jet_eta[jetIdx[i]], jet_phi[jetIdx[i]], jet_e[jetIdx[i]]);
+
+        if( !option.Contains("Run201") and jetP4[i].Phi() < -0.87 and jetP4[i].Phi() > -1.57 and jetP4[i].Eta() < -1.3 and jetP4[i].Eta() > -2.5 ){
+          jetP4[i] = 0.8*jetP4[i];
+        }
+      }
     }
 
     TLorentzVector jetP4cor[4];

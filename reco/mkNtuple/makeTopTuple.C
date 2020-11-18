@@ -531,6 +531,10 @@ Bool_t makeTopTuple::Process(Long64_t entry)
     TLorentzVector jet;
     jet.SetPtEtaPhiE(jet_pt[iJet], jet_eta[iJet], jet_phi[iJet], jet_e[iJet]);
 
+    if( !option.Contains("Run201") and jet.Phi() < -0.87 and jet.Phi() > -1.57 and jet.Eta() < -1.3 and jet.Eta() > -2.5 ){
+      jet = 0.8*jet;
+    }
+
     if( !option.Contains("Run201") ){
       if     ( syst_ext == "jecup" )   jet = jet * jet_JER_Nom[iJet] * jet_JES_Up[iJet];
       else if( syst_ext == "jecdown" ) jet = jet * jet_JER_Nom[iJet] * jet_JES_Down[iJet];
@@ -654,10 +658,18 @@ Bool_t makeTopTuple::Process(Long64_t entry)
     if( chBit == 3 and jet_deepCSV[*ii0] < bWP_M ) continue; //for ttbar reco signal
     jetP4[0].SetPtEtaPhiE(jet_pt[*ii0], jet_eta[*ii0], jet_phi[*ii0], jet_e[*ii0]);
 
+    if( !option.Contains("Run201") and jetP4[0].Phi() < -0.87 and jetP4[0].Phi() > -1.57 and jetP4[0].Eta() < -1.3 and jetP4[0].Eta() > -2.5 ){
+      jetP4[0] = 0.8*jetP4[0];
+    }
+
     for( auto ii1 = jetIdxs.begin(); ii1 != jetIdxs.end(); ++ii1 ){
       if( (chBit == 2 or chBit == 3) and *ii1 == *ii0 ) continue;
       if( chBit == 3 and jet_deepCSV[*ii1] < bWP_M ) continue; //for ttbar reco signal
       if( chBit == 2 or chBit == 3 ) jetP4[3].SetPtEtaPhiE(jet_pt[*ii1], jet_eta[*ii1], jet_phi[*ii1], jet_e[*ii1]);
+
+      if( !option.Contains("Run201") and jetP4[3].Phi() < -0.87 and jetP4[3].Phi() > -1.57 and jetP4[3].Eta() < -1.3 and jetP4[3].Eta() > -2.5 ){
+        jetP4[3] = 0.8*jetP4[3];
+      }
 
       for( auto ii2 = jetIdxs.begin(); ii2 != jetIdxs.end(); ++ii2 ){
         if( *ii2 == *ii0 ) continue;
@@ -675,6 +687,13 @@ Bool_t makeTopTuple::Process(Long64_t entry)
           else{
             jetP4[1].SetPtEtaPhiE(jet_pt[*ii3], jet_eta[*ii3], jet_phi[*ii3], jet_e[*ii3]);
             jetP4[2].SetPtEtaPhiE(jet_pt[*ii2], jet_eta[*ii2], jet_phi[*ii2], jet_e[*ii2]);
+          }
+
+          if( !option.Contains("Run201") and jetP4[1].Phi() < -0.87 and jetP4[1].Phi() > -1.57 and jetP4[1].Eta() < -1.3 and jetP4[1].Eta() > -2.5 ){
+            jetP4[1] = 0.8*jetP4[1];
+          }
+          if( !option.Contains("Run201") and jetP4[2].Phi() < -0.87 and jetP4[2].Phi() > -1.57 and jetP4[2].Eta() < -1.3 and jetP4[2].Eta() > -2.5 ){
+            jetP4[2] = 0.8*jetP4[2];
           }
           //count++;
 
